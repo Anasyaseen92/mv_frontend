@@ -9,7 +9,7 @@ import { TfiGallery } from "react-icons/tfi";
 import socketIO from "socket.io-client";
 import { format } from "timeago.js";
 
-const ENDPOINT = "http://localhost:4000";
+const ENDPOINT = "https://mv-backend-wtl6.vercel.app/";
 const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
 const DashboardMessages = () => {

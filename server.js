@@ -1,3 +1,3 @@
-export const server= "http://localhost:5000/api/v2";
+export const server = "https://mv-backend-wtl6.vercel.app/api/v2";
 
-export const backend_url = "http://localhost:5000"
+export const backend_url = "https://mv-backend-wtl6.vercel.app/"
