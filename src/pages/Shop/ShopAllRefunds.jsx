@@ -1,6 +1,6 @@
 import React from 'react'
 
-import DashboardSidebar from '../../components/Shop/Layout/DashboardSidebar';
+import DashboardSidebar from '../../components/Shop/Layout/DashboardSideBar';
 import DashboardHeader from '../../components/Shop/Layout/DashboardHeader';
 import AllRefundOrders from '../../components/Shop/AllRefundOrders';
 

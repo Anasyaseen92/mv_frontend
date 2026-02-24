@@ -1,7 +1,7 @@
 
 import AllOrders from '../../components/Shop/AllOrders'
 import DashboardHeader from '../../components/Shop/Layout/DashboardHeader'
-import DashboardSidebar from '../../components/Shop/Layout/DashboardSidebar'
+import DashboardSidebar from '../../components/Shop/Layout/DashboardSideBar'
 
 function ShopAllOrders() {
   return (
