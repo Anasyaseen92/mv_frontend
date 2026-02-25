@@ -6,11 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { AiOutlineArrowRight, AiOutlineSend } from "react-icons/ai";
 import styles from "../../styles/styles";
 import { TfiGallery } from "react-icons/tfi";
-import socketIO from "socket.io-client";
 import { format } from "timeago.js";
 
-const ENDPOINT = "https://mv-backend-wtl6.vercel.app/";
-const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
+const socketId = { on() {}, emit() {}, off() {} };;
 
 const DashboardMessages = () => {
   const { seller, isLoading } = useSelector((state) => state.seller);
