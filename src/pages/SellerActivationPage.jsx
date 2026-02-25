@@ -10,11 +10,10 @@ function SellerActivationPage() {
   const activateEmail = async () => {
     setStatus("loading");
     try {
-      const res = await axios.post(
+      await axios.post(
         `${server}/seller/activation`,
         { activation_token },
-        { headers: { "Content-Type": "application/json" } },
-         {withCredentials: true,}
+        { headers: { "Content-Type": "application/json" }, withCredentials: true }
       );
       setStatus("success");
     } catch (e) {
@@ -23,6 +22,12 @@ function SellerActivationPage() {
       setStatus("error");
     }
   };
+
+  useEffect(() => {
+    if (activation_token) {
+      activateEmail();
+    }
+  }, [activation_token]);
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center gap-4 px-4 text-center">
