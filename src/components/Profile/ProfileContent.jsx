@@ -20,7 +20,7 @@ import axios from "axios";
 import { RxCross1 } from "react-icons/rx";
 import { Country, State, City } from "country-state-city";
 import { getAllOrdersOfUser } from "../../redux/actions/order";
-import { server } from "../../server";
+import { server } from "../../../server";
 function ProfileContent({ active, setActive }) {
   const { user, error, successMessage } = useSelector((state) => state.user);
   const [name, setName] = useState(user && user.name);
