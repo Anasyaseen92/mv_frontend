@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { server } from "../../server";
@@ -7,7 +7,7 @@ function ActivationPage() {
   const { activation_token } = useParams();
   const [status, setStatus] = useState("idle"); // 'idle' | 'loading' | 'success' | 'error'
 
-  const activateEmail = async () => {
+  const activateEmail = useCallback(async () => {
     setStatus("loading");
     try {
       const response = await axios.post(
@@ -21,24 +21,35 @@ function ActivationPage() {
       console.log("Activation success:", response.data);
       setStatus("success");
     } catch (e) {
-      console.log("Full error:", e.response?.data || e.message || e);
+      console.log("Full error details:", {
+        message: e.message,
+        code: e.code,
+        status: e.response?.status,
+        data: e.response?.data,
+        headers: e.response?.headers,
+        config: e.config
+      });
       
       // Check if it's a specific error type
       if (e.response?.status === 400 || e.response?.status === 401) {
         setStatus("invalid_token");
       } else if (e.response?.status === 500) {
         setStatus("server_error");
+      } else if (e.code === 'NETWORK_ERROR' || e.code === 'ECONNREFUSED') {
+        setStatus("network_error");
+      } else if (e.response?.status === 404) {
+        setStatus("endpoint_not_found");
       } else {
         setStatus("error");
       }
     }
-  };
+  }, [activation_token]);
 
   useEffect(() => {
     if (activation_token) {
       activateEmail();
     }
-  }, [activation_token]);
+  }, [activation_token, activateEmail]);
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center gap-4 px-4 text-center">
@@ -71,6 +82,28 @@ function ActivationPage() {
           </p>
           <p className="text-gray-600">
             Please try again in a few moments. If the problem persists, contact support.
+          </p>
+        </div>
+      )}
+
+      {status === "network_error" && (
+        <div className="text-center">
+          <p className="text-red-600 text-lg font-semibold mb-4">
+            🔌 Network connection error
+          </p>
+          <p className="text-gray-600">
+            Unable to connect to the server. Please check your internet connection.
+          </p>
+        </div>
+      )}
+
+      {status === "endpoint_not_found" && (
+        <div className="text-center">
+          <p className="text-red-600 text-lg font-semibold mb-4">
+            🔍 Activation endpoint not found
+          </p>
+          <p className="text-gray-600">
+            The activation service is currently unavailable. Please contact support.
           </p>
         </div>
       )}
