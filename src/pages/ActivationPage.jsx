@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { server } from "../../server";
+//import { server } from "../../server";
 
 function ActivationPage() {
   const { activation_token } = useParams();
@@ -11,7 +11,7 @@ function ActivationPage() {
     setStatus("loading");
     try {
       const res = await axios.post(
-        `${server}/user/activation`,
+        `https://mv92.netlify.app/user/activation`,
         { activation_token },
         { headers: { "Content-Type": "application/json" } }
       );
