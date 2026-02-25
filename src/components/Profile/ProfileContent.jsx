@@ -20,7 +20,7 @@ import axios from "axios";
 import { RxCross1 } from "react-icons/rx";
 import { Country, State, City } from "country-state-city";
 import { getAllOrdersOfUser } from "../../redux/actions/order";
-import { server } from "../../../server";
+import { backend_url, server } from "../../../server";
 function ProfileContent({ active, setActive }) {
   const { user, error, successMessage } = useSelector((state) => state.user);
   const [name, setName] = useState(user && user.name);
@@ -31,7 +31,7 @@ function ProfileContent({ active, setActive }) {
   const dispatch = useDispatch();
   useEffect(() => {
     if (error) {
-      toast.error(error);
+      toast.error(typeof error === 'object' ? error.message || 'An error occurred' : error);
       dispatch({ type: "clearErrors" });
     }
     if (successMessage) {
@@ -80,7 +80,7 @@ function ProfileContent({ active, setActive }) {
             <div className="relative">
               <img
                 className="rounded-full w-[150px] h-[150px] object-cover border-[3px] border-blue-700"
-                src={`${user?.avatar}`}
+                src={user?.avatar ? `${backend_url}${user.avatar}` : "/default-avatar.png"}
                 alt=""
               />
               <div className="w-[30px] h-[30px] bg-white rounded-full flex items-center justify-center cursor-pointer absolute bottom-[5px] right-[5px]">
