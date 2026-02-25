@@ -20,7 +20,7 @@ import axios from "axios";
 import { RxCross1 } from "react-icons/rx";
 import { Country, State, City } from "country-state-city";
 import { getAllOrdersOfUser } from "../../redux/actions/order";
-import { backend_url, server } from "../../../server";
+import {  server } from "../../../server";
 function ProfileContent({ active, setActive }) {
   const { user, error, successMessage } = useSelector((state) => state.user);
   const [name, setName] = useState(user && user.name);
@@ -80,7 +80,7 @@ function ProfileContent({ active, setActive }) {
             <div className="relative">
               <img
                 className="rounded-full w-[150px] h-[150px] object-cover border-[3px] border-blue-700"
-                src={user?.avatar ? `${backend_url}${user.avatar}` : "/default-avatar.png"}
+                src={user?.avatar ? `${user.avatar.replace(/\\/g, "/").replace(/^uploads\//, "")}` : "/default-avatar.png"}
                 alt=""
               />
               <div className="w-[30px] h-[30px] bg-white rounded-full flex items-center justify-center cursor-pointer absolute bottom-[5px] right-[5px]">
