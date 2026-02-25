@@ -20,10 +20,11 @@ import axios from "axios";
 import { RxCross1 } from "react-icons/rx";
 import { Country, State, City } from "country-state-city";
 import { getAllOrdersOfUser } from "../../redux/actions/order";
+import { server } from "../../server";
 function ProfileContent({ active, setActive }) {
   const { user, error, successMessage } = useSelector((state) => state.user);
   const [name, setName] = useState(user && user.name);
-  const [avatar, setAvatar] = useState(null);
+
   const [email, setEmail] = useState(user && user.email);
   const [phoneNumber, setPhoneNumber] = useState(user && user?.phoneNumber);
   const [password, setPassword] = useState("");
@@ -36,7 +37,7 @@ function ProfileContent({ active, setActive }) {
     if (successMessage) {
       dispatch({ type: "clearErrors" });
     }
-  }, [error, successMessage]);
+  }, [error, successMessage, dispatch]);
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateUserInfomation(name, email, phoneNumber, password));
@@ -474,21 +475,19 @@ const ChangePassword = () => {
   const passwordChangeHandler = async (e) => {
     e.preventDefault();
 
-    await axios
-      .put(
+    try {
+      await axios.put(
         `${server}/user/update-user-password`,
         { oldPassword, newPassword, confirmPassword },
         { withCredentials: true }
-      )
-      .then((res) => {
-        toast.success("Change Successfully");
-        setOldPassword("");
-        setNewPassword("");
-        setConfirmPassword("");
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-      });
+      );
+      toast.success("Change Successfully");
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   };
   return (
     <div className="w-full px-4 sm:px-6 md:px-8">
