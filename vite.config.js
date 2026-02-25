@@ -4,5 +4,9 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: './', // important for Netlify deployment
+  base: '/', // important for Netlify deployment
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets'
+  }
 })
