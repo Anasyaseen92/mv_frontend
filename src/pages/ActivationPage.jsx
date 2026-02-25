@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-//import { server } from "../../server";
+import { server } from "../../server";
 
 function ActivationPage() {
   const { activation_token } = useParams();
@@ -10,8 +10,8 @@ function ActivationPage() {
   const activateEmail = async () => {
     setStatus("loading");
     try {
-      const res = await axios.post(
-        `https://mv92.netlify.app/user/activation`,
+      await axios.post(
+        `${server}/user/activation`,
         { activation_token },
         { headers: { "Content-Type": "application/json" } }
       );
@@ -22,6 +22,12 @@ function ActivationPage() {
       setStatus("error");
     }
   };
+
+  useEffect(() => {
+    if (activation_token) {
+      activateEmail();
+    }
+  }, [activation_token]);
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center gap-4 px-4 text-center">
