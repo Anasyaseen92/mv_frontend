@@ -15,6 +15,7 @@ import {
   ShopCreatePage,
   SellerActivationPage,
   ShopLoginPage,
+  ForgotPasswordPage,
 } from "./Routes.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -91,6 +92,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/sign-up" element={<SignupPage />} />
         <Route path="/order/success" element={<OrderSuccessPage />} />
         <Route

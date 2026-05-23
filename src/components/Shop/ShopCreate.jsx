@@ -214,12 +214,12 @@ function ShopCreate() {
               <label className="ml-1 text-xs text-gray-900">Remember me</label>
             </div>
             <div className="text-xs">
-              <a
-                href=".forget-password"
+              <Link
+                to="/forgot-password"
                 className="font-medium text-blue-600 hover:text-blue-500"
               >
                 Forgot password?
-              </a>
+              </Link>
             </div>
           </div>
 
